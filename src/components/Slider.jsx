@@ -30,7 +30,6 @@ const Slider = () => {
     <section className="slider_section">
        <div id="customCarousel1" className="carousel slide" data-ride="carousel">
       <div className="carousel">
-     
         <div className="carousel-inner">
           {slidesData.map((slide, index) => (
             <div 
