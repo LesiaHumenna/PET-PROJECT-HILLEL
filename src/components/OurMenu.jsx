@@ -2,8 +2,15 @@ import React, { useEffect, useState } from "react";
 import DeliciousPizza from '../images/f1.png';
 import allProducts from "../API/fetch-products";
 import Product from "./Product";
-function OurMenu(){
+import { NavLink, useLocation } from 'react-router-dom';
 
+function OurMenu(){
+  let buttonView = false
+  const location = useLocation();
+  
+  if(location.pathname  === '/'){
+    buttonView = true;
+  }
   const [products, setProducts] = useState([]);
   const [productsType, setProductsType] = useState([]);
   useEffect(()=>
@@ -66,6 +73,11 @@ setProducts(newOne)
 
          
           </div>
+         {buttonView && <div className="btn-box">
+        <NavLink to="/menu">
+          View More
+        </NavLink>
+      </div>} 
     </div>
   </section>
 
