@@ -4,7 +4,11 @@ import React, { useState, useEffect } from 'react';
 const slidesData = [
   {
     header: "Fast Food Restaurant",
+<<<<<<< HEAD
     text: " Doloremque, itaque aperiam facilis rerum, commodi, temporibus sapiente ad mollitia laborum quam quisquam esse error unde. Tempora ex doloremque, labore, sunt repellat dolore, iste magni quos nihil ducimus libero ipsam.",
+=======
+    text: "Doloremque, itaque aperiam facilis rerum...",
+>>>>>>> 158bdea (slider)
   },
   {
     header: "Healthy Meals",
@@ -28,7 +32,10 @@ const Slider = () => {
 
   return (
     <section className="slider_section">
+<<<<<<< HEAD
        <div id="customCarousel1" className="carousel slide" data-ride="carousel">
+=======
+>>>>>>> 158bdea (slider)
       <div className="carousel">
      
         <div className="carousel-inner">
