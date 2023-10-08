@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 const slidesData = [
   {
     header: "Fast Food Restaurant",
-    text: "Doloremque, itaque aperiam facilis rerum...",
+    text: " Doloremque, itaque aperiam facilis rerum, commodi, temporibus sapiente ad mollitia laborum quam quisquam esse error unde. Tempora ex doloremque, labore, sunt repellat dolore, iste magni quos nihil ducimus libero ipsam.",
   },
   {
     header: "Healthy Meals",
@@ -28,7 +28,9 @@ const Slider = () => {
 
   return (
     <section className="slider_section">
+       <div id="customCarousel1" className="carousel slide" data-ride="carousel">
       <div className="carousel">
+     
         <div className="carousel-inner">
           {slidesData.map((slide, index) => (
             <div 
@@ -62,6 +64,7 @@ const Slider = () => {
               />
             ))}
           </ol>
+        </div>
         </div>
       </div>
     </section>
