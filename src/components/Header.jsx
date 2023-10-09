@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import Logo from "../images/hero-bg.jpg";
 import Slider from "./Slider";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
@@ -10,12 +10,14 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 
-
 const user = <FontAwesomeIcon icon={faUser} />;
 const cart = <FontAwesomeIcon icon={faCartShopping} />;
 const search = <FontAwesomeIcon icon={faMagnifyingGlass} />;
 
-function Header({products, setProducts}) {
+// eslint-disable-next-line react/prop-types
+function Header({allProducts }) {
+const navigate = useNavigate();
+
   const location = useLocation();
   console.log(location.pathname);
   let background = false;
@@ -37,18 +39,29 @@ function Header({products, setProducts}) {
   const [searchText, setSearchText] = useState("");
   const [searchProd, setSearchProd] = useState(false);
   const searchClick = (e) => {
-    e.preventDefault()
-    setSearchProd(!searchProd); 
+    e.preventDefault();
+    setSearchProd(!searchProd);
   };
-  const handleChange =(e)=>{
-e.preventDefault();
-setSearchText(e.target.value)
-const filtered = products.filter((product) => 
-  product.name.toLowerCase().includes(e.target.value.toLowerCase())
-)
-setProducts(filtered)
-}
-  console.log(setProducts)
+  const handleChange = (e) => {
+    e.preventDefault();
+    setSearchText(e.target.value);
+
+    if(allProducts){
+    
+    // eslint-disable-next-line react/prop-types
+    const filtered = allProducts.filter((products) =>
+      // eslint-disable-next-line react/prop-types
+      products.name.toLowerCase().includes(e.target.value.toLowerCase())
+    );
+    if(filtered.length === 1){
+      const selectProduct = filtered[0];
+      navigate(`/products/${selectProduct.id}`);
+    }else{
+      allProducts(filtered);
+    }
+  }
+  };
+  console.log(allProducts)
 
   return (
     <>
@@ -129,8 +142,11 @@ setProducts(filtered)
               </div>
             </nav>
             {searchProd && (
-              <nav className="navbar nav_search navbar-light bg-light" style={{ width: '50%', float: 'right' }}>
-                <form className="form-inline" >
+              <nav
+                className="navbar nav_search navbar-light bg-light"
+                style={{ width: "30%", float: "right" }}
+              >
+                <form className="form-inline">
                   <input
                     className="form-control mr-sm-2"
                     type="search"
@@ -139,7 +155,7 @@ setProducts(filtered)
                     onChange={handleChange}
                     value={searchText}
                   />
-                  <button
+                  <button onClick={`{selectProduct.id}`}
                     className="btn btn-outline-success my-2 my-sm-0"
                     type="submit"
                   >

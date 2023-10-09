@@ -29,7 +29,7 @@ function OurMenu(){
       }
 
   },[])
-  console.log(setProducts)
+  
   function addProducts(products) {
     const allProducts2 = Object.values(products).flatMap(product => Object.values(product));
     setProducts(allProducts2);
@@ -44,11 +44,8 @@ for(const key in productsType){
     newOne = Object.values(productsType[key]);
   }
 }
-console.log(productsType)
 setProducts(newOne)
   }
-
-
     return(
         <>
          <section className="food_section layout_padding-bottom">
