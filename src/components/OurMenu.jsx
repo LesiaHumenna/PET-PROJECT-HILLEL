@@ -29,7 +29,7 @@ function OurMenu(){
       }
 
   },[])
-  
+  console.log(setProducts)
   function addProducts(products) {
     const allProducts2 = Object.values(products).flatMap(product => Object.values(product));
     setProducts(allProducts2);
