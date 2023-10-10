@@ -26,7 +26,7 @@ const navigate = useNavigate();
   };
   if (location.pathname === "/") {
     background = true;
-  } else if (location.pathname === "/menu" || location.pathname === "/shop") {
+  } else if (location.pathname !== "/") {
     heightHerou = {
       minHeight: "auto",
     };
