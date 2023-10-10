@@ -85,7 +85,7 @@ function OurMenu() {
           </div>
           {buttonView && (
             <div className="btn-box">
-              <NavLink to="/menu">View More</NavLink>
+              <NavLink to="/menu">View1 More</NavLink>
             </div>
           )}
         </div>
