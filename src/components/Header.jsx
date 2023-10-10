@@ -15,7 +15,7 @@ const cart = <FontAwesomeIcon icon={faCartShopping} />;
 const search = <FontAwesomeIcon icon={faMagnifyingGlass} />;
 
 // eslint-disable-next-line react/prop-types
-function Header({allProducts }) {
+function Header({productsType }) {
 const navigate = useNavigate();
 
   const location = useLocation();
@@ -45,23 +45,22 @@ const navigate = useNavigate();
   const handleChange = (e) => {
     e.preventDefault();
     setSearchText(e.target.value);
-
-    if(allProducts){
-    
+    if(productsType){
     // eslint-disable-next-line react/prop-types
-    const filtered = allProducts.filter((products) =>
+    const filtered = productsType.filter((product) =>
       // eslint-disable-next-line react/prop-types
-      products.name.toLowerCase().includes(e.target.value.toLowerCase())
+      product.name.toLowerCase().includes(e.target.value.toLowerCase())
     );
     if(filtered.length === 1){
-      const selectProduct = filtered[0];
-      navigate(`/products/${selectProduct.id}`);
+      const products = filtered[0];
+      navigate(`/menu/${products.id}`);
     }else{
-      allProducts(filtered);
+      productsType(filtered);
     }
+    
   }
   };
-  console.log(allProducts)
+  console.log(productsType)
 
   return (
     <>
@@ -111,15 +110,15 @@ const navigate = useNavigate();
                     </a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="book.html">
+                    <NavLink className="nav-link" to= "/booktable">
                       Book Table
-                    </a>
+                    </NavLink>
                   </li>
                 </ul>
                 <div className="user_option">
-                  <a href="" className="user_link">
+                  <NavLink to="/login" className="user_link">
                     {user}
-                  </a>
+                  </NavLink>
                   <NavLink to="/shop" className="user_link">
                     {cart}
                   </NavLink>
