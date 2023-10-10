@@ -12,11 +12,11 @@ function SignUp() {
         <Form.Control type="email" placeholder="name@example.com" />
       </Form.Group>
       <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-        <Form.Label>Password address</Form.Label>
+        <Form.Label>Password</Form.Label>
         <Form.Control type="passord" placeholder="password" rows={3} />
       </Form.Group>
-      <button>SignIn</button>
-      <button>SignUp</button>
+      <button className="sing">SignIn</button>
+      <button className="sing">SignUp</button>
     </Form>
   );
 }
