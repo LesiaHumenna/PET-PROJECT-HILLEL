@@ -12,8 +12,10 @@ function SignIn() {
         <Form.Label>Password address</Form.Label>
         <Form.Control type="passord"  placeholder="password" rows={3} />
       </Form.Group>
-      <button className="sing">Sign In</button>
-      <button className="sing">SignUp</button>
+
+      <button>SignIn</button>
+      <button>SignUp</button>
+
     </Form>
   )
 }
