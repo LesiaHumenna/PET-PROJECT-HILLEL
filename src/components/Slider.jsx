@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 const slidesData = [
   {
     header: "Fast Food Restaurant",
-    text: " Doloremque, itaque aperiam facilis rerum, commodi, temporibus sapiente ad mollitia laborum quam quisquam esse error unde. Tempora ex doloremque, labore, sunt repellat dolore, iste magni quos nihil ducimus libero ipsam.",
+    text: "Doloremque, itaque aperiam facilis rerum, commodi, temporibus sapiente ad mollitia laborum quam quisquam esse error unde. Tempora ex doloremque, labore, sunt repellat dolore, iste magni quos nihil ducimus libero ipsam.",
   },
   {
     header: "Healthy Meals",
