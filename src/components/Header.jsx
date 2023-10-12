@@ -9,22 +9,23 @@ import {
   faCartShopping,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import {useSelector} from "react-redux";
 import UserLogIn from './UserLogIn';
-//import { useDispatch } from 'react-redux'
-
+import { useDispatch, useSelector } from 'react-redux'
+import {productsActions} from '../store/index'
 const userIcon = <FontAwesomeIcon icon={faUser} />;
 const cart = <FontAwesomeIcon icon={faCartShopping} />;
 const search = <FontAwesomeIcon icon={faMagnifyingGlass} />;
 
 // eslint-disable-next-line react/prop-types
-function Header({productsType }) {
+function Header() {
 const navigate = useNavigate();
 const user = useSelector(state => state.user);
-//const dispatch = useDispatch();
+const arrayProducts = useSelector(state => state.products.items);
+
+const dispatch = useDispatch();
 
   const location = useLocation();
-  console.log(location.pathname);
+ 
   let background = false;
   let heightHerou = {
     minHeight: "100vh",
@@ -48,30 +49,33 @@ const user = useSelector(state => state.user);
 
   const [searchText, setSearchText] = useState("");
   const [searchProd, setSearchProd] = useState(false);
+  const [filtredProd, setFilterProd] = useState([]);
   const searchClick = (e) => {
     e.preventDefault();
-
     setSearchProd(!searchProd);
   };
   const handleChange = (e) => {
-    e.preventDefault();
-    setSearchText(e.target.value);
-    if(productsType){
-    // eslint-disable-next-line react/prop-types
-    const filtered = productsType.filter((product) =>
-      // eslint-disable-next-line react/prop-types
-      product.name.toLowerCase().includes(e.target.value.toLowerCase())
-    );
-    if(filtered.length === 1){
-      const products = filtered[0];
-      navigate(`/menu/${products.id}`);
-    }else{
-      productsType(filtered);
-    }
-    
+    setSearchText(e.target.value.trim());
+    console.log(searchText);
+    if(arrayProducts){
+    const filtered = arrayProducts.filter((product) =>
+    product.name.toLowerCase().includes(searchText)
+      );
+    console.log(filtered)
+      setFilterProd(filtered);
   }
   };
-  console.log(productsType)
+
+  function searchNow(e){
+    e.preventDefault();
+    if(filtredProd.length > 0){
+      console.log(filtredProd)
+      const products = filtredProd;
+      dispatch(productsActions.filtedProd(filtredProd));
+  navigate(`/search/?${searchText}`);
+    }
+  }
+
 
   return (
     <>
@@ -179,7 +183,7 @@ const user = useSelector(state => state.user);
                     onChange={handleChange}
                     value={searchText}
                   />
-                  <button onClick={`{selectProduct.id}`}
+                  <button onClick={(e)=> {searchNow(e)}}
                     className="btn btn-outline-success my-2 my-sm-0"
                     type="submit"
                   >
