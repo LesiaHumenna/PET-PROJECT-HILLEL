@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { auth } from "/src/API/firebase";
-
+import { DB_URL } from "/src/API/firebase";
 
 export const userSlice = createSlice({
     name: 'user',
@@ -31,3 +30,30 @@ export const userSlice = createSlice({
         }
     }
 });
+export const getUserFromDB = (userId) => {
+    return async (dispatch) => {
+        const sendRequest = async () => {
+            const response = await fetch(DB_URL + '/users/' + userId + '.json');
+
+            if (!response.ok) {
+                throw new Error('Cant get user from DB');
+            }
+
+            const data = await response.json();
+            return data;
+        }
+        
+        try {
+            const userFromDB = await sendRequest();
+            dispatch(userSlice.actions.setActiveUser({
+                name: userFromDB.name,
+                email: userFromDB.email,
+                userId: userId,
+                cart: userFromDB.cart,
+                orders: userFromDB.orders || []
+            }));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
