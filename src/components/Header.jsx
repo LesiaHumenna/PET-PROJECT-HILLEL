@@ -47,7 +47,7 @@ const dispatch = useDispatch();
     backgroundColor: "black",
   };
 
-  const [searchText, setSearchText] = useState("");
+  const [searchText, setSearchText] = useState(' ');
   const [searchProd, setSearchProd] = useState(false);
   const [filtredProd, setFilterProd] = useState([]);
   const searchClick = (e) => {
@@ -55,11 +55,10 @@ const dispatch = useDispatch();
     setSearchProd(!searchProd);
   };
   const handleChange = (e) => {
-    setSearchText(e.target.value.trim());
-    console.log(searchText);
+    setSearchText(e.target.value);
     if(arrayProducts){
     const filtered = arrayProducts.filter((product) =>
-    product.name.toLowerCase().includes(searchText)
+    product.name.toLowerCase().includes(e.target.value.trim())
       );
     console.log(filtered)
       setFilterProd(filtered);
