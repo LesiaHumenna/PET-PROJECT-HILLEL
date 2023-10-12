@@ -1,13 +1,21 @@
 import React from "react";
 import NavDropdown from "react-bootstrap/NavDropdown";
-//import { useSelector } from 'react-redux';
-//import { auth } from "/src/API/firebase";
+import { useDispatch } from "react-redux";
+import { auth } from "/src/API/firebase";
+import { userActions } from "../store/";
 
 function UserLogIn({user}) {
-    //const user = useSelector(state => state.user);
+  const dispatch = useDispatch();
 
     const handleLogout = () => {
-
+      auth.signOut()
+      .then(() => {
+          console.log('signout');
+          dispatch(userActions.logout());
+      })
+      .catch((error) => {
+          console.log(error);
+      });
     }
   return (
     <div>

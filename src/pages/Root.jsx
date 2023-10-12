@@ -13,10 +13,9 @@ function Root (){
         auth.onAuthStateChanged((authUser) => {
             if (authUser) {
                 console.log(authUser);
-                // dispath(userActions.setActiveUser)
                 dispatch(getUserFromDB(authUser.uid));
             } else {
-                console.log('no user');
+                console.log('No User!');
             }
         });
     }, []);
