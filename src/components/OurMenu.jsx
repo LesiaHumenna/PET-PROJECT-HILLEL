@@ -3,9 +3,11 @@ import DeliciousPizza from "../images/f1.png";
 import allProducts from "../API/fetch-products";
 import Product from "./Product";
 import { NavLink, useLocation } from "react-router-dom";
-
+import { useSelector, useDispatch } from 'react-redux';
+import {productsActions} from '../store/index'
 function OurMenu() {
   let buttonView = false;
+  const dispatch = useDispatch();
   const location = useLocation();
 
   if (location.pathname === "/") {
@@ -20,6 +22,7 @@ function OurMenu() {
       setProducts(products1);
       addProducts(products1);
       setProductsType(products1);
+      
     }
 
     if (!dowloadingProducts) {
@@ -33,6 +36,7 @@ function OurMenu() {
       Object.values(product)
     );
     setProducts(allProducts2);
+    dispatch(productsActions.installValue(allProducts2));
   }
 
   function handleOnclick(e) {
