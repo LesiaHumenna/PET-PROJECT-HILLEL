@@ -71,7 +71,7 @@ const dispatch = useDispatch();
       console.log(filtredProd)
       const products = filtredProd;
       dispatch(productsActions.filtedProd(filtredProd));
-  navigate(`/search/?${searchText}`);
+  //navigate(`/search/?${searchText}`);
     }
   }
 
@@ -186,7 +186,7 @@ const dispatch = useDispatch();
                     className="btn btn-outline-success my-2 my-sm-0"
                     type="submit"
                   >
-                    Search
+                    <NavLink to="search">Search</NavLink> 
                   </button>
                 </form>
               </nav>

@@ -5,6 +5,7 @@ import {useSelector} from "react-redux";
 import Product from "../components/Product";
 const Search = () => {
     const products = useSelector(state => state.products.filtedProducts);
+    console.log(products)
     return(
         <>
 <h1>Search</h1>
