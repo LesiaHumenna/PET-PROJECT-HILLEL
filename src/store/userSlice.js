@@ -30,6 +30,7 @@ export const userSlice = createSlice({
         }
     }
 });
+//function return another function/ call dispatch in Root
 export const getUserFromDB = (userId) => {
     return async (dispatch) => {
         const sendRequest = async () => {
