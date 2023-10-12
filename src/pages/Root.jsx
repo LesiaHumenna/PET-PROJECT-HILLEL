@@ -2,8 +2,24 @@ import { Outlet, useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {useEffect} from 'react';
+import { auth } from "/src/API/firebase";
+import { useDispatch } from 'react-redux';
+import { getUserFromDB } from '../store/userSlice';
+
 function Root (){
-useEffect
+    const dispatch = useDispatch();
+    useEffect(() => {
+        auth.onAuthStateChanged((authUser) => {
+            if (authUser) {
+                console.log(authUser);
+                // dispath(userActions.setActiveUser)
+                dispatch(getUserFromDB(authUser.uid));
+            } else {
+                console.log('no user');
+            }
+        });
+    }, []);
     return(
         <>
         <ToastContainer autoClose={2000} />
