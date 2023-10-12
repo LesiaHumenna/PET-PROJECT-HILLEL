@@ -32,6 +32,11 @@ const navigate = useNavigate();
     };
   }
 
+  const computeLinkStyle = (path, exact = false) => {
+    const isActive = exact ? location.pathname === path : location.pathname.startsWith(path);
+    return { color: isActive ? '#ffbe33' : 'white' };
+  };
+
   const colorBackground = {
     backgroundColor: "black",
   };
@@ -93,28 +98,41 @@ const navigate = useNavigate();
                 className="collapse navbar-collapse"
                 id="navbarSupportedContent"
               >
-                <ul className="navbar-nav  mx-auto ">
-                  <li className="nav-item active">
-                    <NavLink className="nav-link" to="/">
+              <ul className="navbar-nav  mx-auto ">
+                  <li className="nav-item">
+                    <NavLink
+                     className="nav-link"
+                     style={computeLinkStyle("/", true)}
+                      to="/" exact>
                       Home <span className="sr-only">(current)</span>
                     </NavLink>
                   </li>
+
                   <li className="nav-item">
-                    <NavLink className="nav-link" to="/menu">
+                    <NavLink className="nav-link" style={computeLinkStyle("/menu")} to="/menu">
                       Menu
-                    </NavLink>
+                    </NavLink>                  
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="about.html">
-                      About
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <NavLink className="nav-link" to= "/booktable">
-                      Book Table
-                    </NavLink>
-                  </li>
-                </ul>
+            <a
+              className="nav-link"
+              style={computeLinkStyle("/about")}
+              href="/about"
+            >
+              About
+            </a>
+          </li>
+
+          <li className="nav-item">
+            <NavLink
+              className="nav-link"
+              style={computeLinkStyle("/booktable")}
+              to="/booktable"
+            >
+              Book Table
+            </NavLink>
+          </li>
+        </ul>
                 <div className="user_option">
                   <NavLink to="/login" className="user_link">
                     {user}
