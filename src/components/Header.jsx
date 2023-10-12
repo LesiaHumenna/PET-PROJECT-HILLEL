@@ -9,14 +9,19 @@ import {
   faCartShopping,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import {useSelector} from "react-redux";
+import UserLogIn from './UserLogIn';
+//import { useDispatch } from 'react-redux'
 
-const user = <FontAwesomeIcon icon={faUser} />;
+const userIcon = <FontAwesomeIcon icon={faUser} />;
 const cart = <FontAwesomeIcon icon={faCartShopping} />;
 const search = <FontAwesomeIcon icon={faMagnifyingGlass} />;
 
 // eslint-disable-next-line react/prop-types
 function Header({productsType }) {
 const navigate = useNavigate();
+const user = useSelector(state => state.user);
+//const dispatch = useDispatch();
 
   const location = useLocation();
   console.log(location.pathname);
@@ -40,6 +45,7 @@ const navigate = useNavigate();
   const [searchProd, setSearchProd] = useState(false);
   const searchClick = (e) => {
     e.preventDefault();
+
     setSearchProd(!searchProd);
   };
   const handleChange = (e) => {
@@ -116,9 +122,10 @@ const navigate = useNavigate();
                   </li>
                 </ul>
                 <div className="user_option">
-                  <NavLink to="/login" className="user_link">
-                    {user}
-                  </NavLink>
+                   {!user.isLoggedIn && <NavLink to="/login" className="user_link">
+                    {userIcon}
+                  </NavLink>}
+                  {user.isLoggedIn && <UserLogIn user={user} />}
                   <NavLink to="/shop" className="user_link">
                     {cart}
                   </NavLink>

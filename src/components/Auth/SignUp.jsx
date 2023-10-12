@@ -1,9 +1,14 @@
 import React from "react";
 import Form from "react-bootstrap/Form";
-import { createUserWithEmailAndPassword} from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "/src/API/firebase";
 import { useState } from "react";
-
+import { useDispatch } from "react-redux";
+import { userActions } from "../../store/";
+import { ref, set } from "firebase/database";
+import { database } from "/src/API/firebase";
+import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
 //valid
 const validate = (values) => {
   const errors = {};
@@ -26,6 +31,9 @@ function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
 
   const handleSignUp = (e) => {
     e.preventDefault();
@@ -33,30 +41,51 @@ function SignUp() {
     const validErrors = validate({ name, email, password });
     setErrors(validErrors);
     if (Object.keys(validErrors).length === 0) {
-      createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          // Signed up
+      createUserWithEmailAndPassword(auth, email, password).then(
+        (userCredential) => {
           const user = userCredential.user;
-          // ...
           console.log(user);
-
-          set(ref(database, "users/" + user.id), {
-            name: user.name,
+          console.log(database);
+          set(ref(database, "users/" + user.uid), {
+            name: name,
             email: email,
-            password: password,
-            userId: user.id,
+            userId: user.uid,
             orders: [],
             cart: "",
+          }).catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(errorMessage);
+            // ..
           });
+          dispatch(
+            userActions.setActiveUser({
+              name: name,
+              email: email,
+              userId: user.uid,
+              orders: [],
+              cart: "",
+            })
+          );
+          updateProfile(auth.currentUser, {
+            displayName: name
         })
-        .catch((error) => {
+        .then(() => {
+          toast.success(`Welcome back, ${user.displayName} 😃!`);
+          console.log('Profile updated');
+      })
+      .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
+          toast.error('Sorry, its error 😒');
           console.log(errorMessage);
-          // ..
-        });
+      });
+      // 4. navigate to Home page
+      navigate('/');
+  })
+        }
     }
-  };
+  
   return (
     <Form onSubmit={handleSignUp}>
       <Form.Group className="mb-3" controlId="exampleForm.ControlInput3">
@@ -93,7 +122,7 @@ function SignUp() {
           {errors.password}
         </Form.Control.Feedback>
       </Form.Group>
-      <button type="sing">Sign Up</button>
+      <button className="sing">Sign Up</button>
     </Form>
   );
 }
