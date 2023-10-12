@@ -1,10 +1,13 @@
+// eslint-disable-next-line no-unused-vars
 import React from "react";
 import Form from "react-bootstrap/Form";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { auth } from "/src/API/firebase";
 import { useState } from "react";
-
+import { useDispatch } from "react-redux";
+import { userActions } from "../../store/";
+import { toast } from 'react-toastify';
 //
 const validate = (values) => {
   const errors = {};
@@ -21,18 +24,19 @@ function SignIn() {
   const [password, setPassword] = useState();
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   function handleLogin(e) {
     e.preventDefault();
+    
     const validErrors = validate({ email, password });
     setErrors(validErrors);
     if (Object.keys(validErrors).length === 0) {
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-          // Signed in
           const user = userCredential.user;
-          // ...
           console.log(user);
+          
           dispatch(
             userActions.setActiveUser({
               name: user.displayName,
@@ -42,15 +46,14 @@ function SignIn() {
               cart: "",
             })
           );
-          toast.success(`Welcome, ${user.displayName}!`);
-          // navigate to Home page
-          navigate("/");
+            toast.success(`Welcome, ${user.displayName} 🙌!`);
+            navigate("/");
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
           console.log(errorMessage);
-          toast.error(errorMessage);
+          toast.error('Sorry, its error 😒');
         });
     }
   }
@@ -71,7 +74,7 @@ function SignIn() {
       <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
         <Form.Label>Password address</Form.Label>
         <Form.Control
-            type="passord"
+            type="password"
             placeholder="password" rows={3}
             onChange={(e) => setPassword(e.target.value)}
             isInvalid={!!errors.password}
@@ -80,7 +83,7 @@ function SignIn() {
             {errors.password}
             </Form.Control.Feedback>
       </Form.Group>
-      <button class="sing">SignIn</button>
+      <button className="sing">SignIn</button>
     </Form>
   )
 }
