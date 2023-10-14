@@ -1,4 +1,9 @@
+import { useSelector } from "react-redux";
+
 function Shop(){
+    let cart = useSelector((state) => state.cart);
+    // add elements from store to cart
+console.log(cart.items)
     return(
         <>
          <section className="book_section layout_padding">

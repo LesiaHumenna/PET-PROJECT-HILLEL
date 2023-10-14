@@ -5,10 +5,12 @@ import Product from "./Product";
 import { NavLink, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import {productsActions} from '../store/index'
+
 function OurMenu() {
   let buttonView = false;
   const dispatch = useDispatch();
   const location = useLocation();
+
   const [activeItem, setActiveItem] = useState("*");
   if (location.pathname === "/") {
     buttonView = true;
@@ -37,6 +39,7 @@ function OurMenu() {
     );
     setProducts(allProducts2);
     dispatch(productsActions.installValue(allProducts2));
+   
   }
 
   function handleOnclick(e, filter) {
@@ -49,6 +52,8 @@ function OurMenu() {
       }
     }
     setProducts(newOne);
+    
+
   }
   return (
     <>
@@ -101,7 +106,7 @@ function OurMenu() {
             {products && (
               <div className="row grid">
                 {products.map((item) => (
-                  <Product props={item} />
+                  <Product key={item.name} props={item} />
                 ))}{" "}
               </div>
             )}
