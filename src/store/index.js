@@ -12,6 +12,7 @@ const productsSlice = createSlice({
     reducers:{
         installValue(state, action){
            state.items = action.payload;
+           console.log( state.items);
         },
         filtedProd(state, action){
             state.filtedProducts = action.payload;
@@ -27,6 +28,13 @@ const cartSlice = createSlice({
         isVisible: false
     },
     reducers: {
+    addCart(state,action){
+   let product = action.payload;
+   let b = [];
+   b.push(product);
+   state.items = [...state.items, ...b]
+console.log(state.items)
+}
 
     }})
 
