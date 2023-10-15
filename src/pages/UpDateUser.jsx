@@ -7,8 +7,8 @@ import OurMenu from "../components/OurMenu";
 
 function UpDateUser() {
   const [user, setUser] = useState({});
-  const [name, setName] = useState(user.name);
-  const [email, setEmail] = useState(user.email);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
 
   const { userId } = useParams();
 
@@ -30,7 +30,7 @@ function UpDateUser() {
     const userRef = ref(database, `users/${userId}`);
     update(userRef, { name: name, email: email })
       .then(() => {
-        console.log("Дані користувача оновлено.");
+        console.log("Дані оновлено.");
       })
       .catch((error) => {
         console.error("Помилка під час оновлення даних:", error);
@@ -38,7 +38,6 @@ function UpDateUser() {
   };
   return (
     <div>
-    <OurMenu />
       <h2>Edit User</h2>
       <div>
         <label>Name:</label>
