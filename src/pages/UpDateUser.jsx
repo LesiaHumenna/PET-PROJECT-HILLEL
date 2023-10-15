@@ -2,15 +2,15 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { ref, get, update } from "firebase/database";
 import { database } from "/src/API/firebase";
-import { useParams } from "react-router-dom";
-import OurMenu from "../components/OurMenu";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { Col, Container, Nav, Row, Tab } from 'react-bootstrap';
+import { getAuth, updateProfile } from "firebase/auth";
 function UpDateUser() {
   const [user, setUser] = useState({});
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
   const user1 = useSelector(state => state.user)
+  
 console.log(user1.userId);
   useEffect(() => {
     const userRef = ref(database, `users/${user1.userId}`);
@@ -24,7 +24,7 @@ console.log(user1.userId);
       }
     });
   }, [user1.userId]);
-  console.log(user1.userId);
+
 
   const handleSave = () => {
     const userRef = ref(database, `users/${user1.userId}`);
