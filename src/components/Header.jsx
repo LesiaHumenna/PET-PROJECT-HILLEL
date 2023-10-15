@@ -9,22 +9,30 @@ import {
   faCartShopping,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+
 import {useSelector} from "react-redux";
 import UserLogOut from './UserLogOut';
 //import { useDispatch } from 'react-redux'
+
+
+import UserLogIn from './UserLogIn';
+import { useDispatch, useSelector } from 'react-redux'
+import {productsActions} from '../store/index'
 
 const userIcon = <FontAwesomeIcon icon={faUser} />;
 const cart = <FontAwesomeIcon icon={faCartShopping} />;
 const search = <FontAwesomeIcon icon={faMagnifyingGlass} />;
 
 // eslint-disable-next-line react/prop-types
-function Header({productsType }) {
+function Header() {
 const navigate = useNavigate();
 const user = useSelector(state => state.user);
-//const dispatch = useDispatch();
+const arrayProducts = useSelector(state => state.products.items);
+
+const dispatch = useDispatch();
 
   const location = useLocation();
-  console.log(location.pathname);
+ 
   let background = false;
   let heightHerou = {
     minHeight: "100vh",
@@ -37,36 +45,43 @@ const user = useSelector(state => state.user);
     };
   }
 
+  const computeLinkStyle = (path, exact = false) => {
+    const isActive = exact ? location.pathname === path : location.pathname.startsWith(path);
+    return { color: isActive ? '#ffbe33' : 'white' };
+  };
+
   const colorBackground = {
     backgroundColor: "black",
   };
 
-  const [searchText, setSearchText] = useState("");
+  const [searchText, setSearchText] = useState(' ');
   const [searchProd, setSearchProd] = useState(false);
+  const [filtredProd, setFilterProd] = useState([]);
   const searchClick = (e) => {
     e.preventDefault();
-
     setSearchProd(!searchProd);
   };
   const handleChange = (e) => {
-    e.preventDefault();
     setSearchText(e.target.value);
-    if(productsType){
-    // eslint-disable-next-line react/prop-types
-    const filtered = productsType.filter((product) =>
-      // eslint-disable-next-line react/prop-types
-      product.name.toLowerCase().includes(e.target.value.toLowerCase())
-    );
-    if(filtered.length === 1){
-      const products = filtered[0];
-      navigate(`/menu/${products.id}`);
-    }else{
-      productsType(filtered);
-    }
-    
+    if(arrayProducts){
+    const filtered = arrayProducts.filter((product) =>
+    product.name.toLowerCase().includes(e.target.value.trim())
+      );
+    console.log(filtered)
+      setFilterProd(filtered);
   }
   };
-  console.log(productsType)
+
+  function searchNow(e){
+    e.preventDefault();
+    if(filtredProd.length > 0){
+      console.log(filtredProd)
+      const products = filtredProd;
+      dispatch(productsActions.filtedProd(filtredProd));
+  //navigate(`/search/?${searchText}`);
+    }
+  }
+
 
   return (
     <>
@@ -99,28 +114,41 @@ const user = useSelector(state => state.user);
                 className="collapse navbar-collapse"
                 id="navbarSupportedContent"
               >
-                <ul className="navbar-nav  mx-auto ">
-                  <li className="nav-item active">
-                    <NavLink className="nav-link" to="/">
+              <ul className="navbar-nav  mx-auto ">
+                  <li className="nav-item">
+                    <NavLink
+                     className="nav-link"
+                     style={computeLinkStyle("/", true)}
+                      to="/" exact>
                       Home <span className="sr-only">(current)</span>
                     </NavLink>
                   </li>
+
                   <li className="nav-item">
-                    <NavLink className="nav-link" to="/menu">
+                    <NavLink className="nav-link" style={computeLinkStyle("/menu")} to="/menu">
                       Menu
-                    </NavLink>
+                    </NavLink>                  
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="about.html">
-                      About
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <NavLink className="nav-link" to= "/booktable">
-                      Book Table
-                    </NavLink>
-                  </li>
-                </ul>
+            <NavLink to="/about"
+              className="nav-link"
+              style={computeLinkStyle("/about")}
+             
+            >
+              About
+            </NavLink>
+          </li>
+
+          <li className="nav-item">
+            <NavLink
+              className="nav-link"
+              style={computeLinkStyle("/booktable")}
+              to="/booktable"
+            >
+              Book Table
+            </NavLink>
+          </li>
+        </ul>
                 <div className="user_option">
                    {!user.isLoggedIn && <NavLink to="/login" className="user_link">
                     {userIcon}
@@ -161,11 +189,11 @@ const user = useSelector(state => state.user);
                     onChange={handleChange}
                     value={searchText}
                   />
-                  <button onClick={`{selectProduct.id}`}
+                  <button onClick={(e)=> {searchNow(e)}}
                     className="btn btn-outline-success my-2 my-sm-0"
                     type="submit"
                   >
-                    Search
+                    <NavLink to="search">Search</NavLink> 
                   </button>
                 </form>
               </nav>

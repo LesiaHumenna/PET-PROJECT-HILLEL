@@ -3,11 +3,15 @@ import DeliciousPizza from "../images/f1.png";
 import allProducts from "../API/fetch-products";
 import Product from "./Product";
 import { NavLink, useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux';
+import {productsActions} from '../store/index'
 
 function OurMenu() {
   let buttonView = false;
+  const dispatch = useDispatch();
   const location = useLocation();
 
+  const [activeItem, setActiveItem] = useState("*");
   if (location.pathname === "/") {
     buttonView = true;
   }
@@ -20,6 +24,7 @@ function OurMenu() {
       setProducts(products1);
       addProducts(products1);
       setProductsType(products1);
+      
     }
 
     if (!dowloadingProducts) {
@@ -33,10 +38,13 @@ function OurMenu() {
       Object.values(product)
     );
     setProducts(allProducts2);
+    dispatch(productsActions.installValue(allProducts2));
+   
   }
 
-  function handleOnclick(e) {
-    const nameFilter = e.target.textContent.toLowerCase();
+  function handleOnclick(e, filter) {
+    setActiveItem(filter);
+    const nameFilter = filter.toLowerCase();
     let newOne;
     for (const key in productsType) {
       if (key === nameFilter) {
@@ -44,8 +52,9 @@ function OurMenu() {
       }
     }
     setProducts(newOne);
-  }
+    
 
+  }
   return (
     <>
       <section className="food_section layout_padding-bottom">
@@ -53,32 +62,51 @@ function OurMenu() {
           <div className="heading_container heading_center">
             <h2>Our menu</h2>
           </div>
-
           <ul className="filters_menu">
             <li
-              className="active"
+              className={activeItem === "*" ? "active" : ""}
               data-filter="*"
               onClick={() => {
+                setActiveItem("*");
                 addProducts(productsType);
               }}
             >
               All
             </li>
-            <li data-filter=".burger" onClick={handleOnclick}>
+            <li 
+              className={activeItem === "Burgers" ? "active" : ""}
+              data-filter=".burger" 
+              onClick={(e) => handleOnclick(e, "Burgers")}
+            >
               Burgers
             </li>
-            <li data-filter=".pizza" onClick={handleOnclick}>
+            <li 
+              className={activeItem === "Pizza" ? "active" : ""}
+              data-filter=".pizza" 
+              onClick={(e) => handleOnclick(e, "Pizza")}
+            >
               Pizza
             </li>
-            <li data-filter=".pasta">Pasta</li>
-            <li data-filter=".fries">Fries</li>
+            <li 
+              className={activeItem === "Pasta" ? "active" : ""}
+              data-filter=".pasta" 
+              onClick={(e) => handleOnclick(e, "Pasta")}
+            >
+              Pasta
+            </li>
+            <li 
+              className={activeItem === "Fries" ? "active" : ""}
+              data-filter=".fries" 
+              onClick={(e) => handleOnclick(e, "Fries")}
+            >
+              Fries
+            </li>
           </ul>
-
           <div className="filters-content">
             {products && (
               <div className="row grid">
                 {products.map((item) => (
-                  <Product props={item} />
+                  <Product key={item.name} props={item} />
                 ))}{" "}
               </div>
             )}
