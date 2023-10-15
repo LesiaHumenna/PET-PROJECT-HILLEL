@@ -1,10 +1,9 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { ref, get, updateProfile } from "firebase/database";
+import { ref, get, update } from "firebase/database";
 import { database } from "/src/API/firebase";
-import { useDispatch } from 'react-redux';
-import { getUserFromDB } from '../store/userSlice';
-
+import { useDispatch } from "react-redux";
+import { getUserFromDB } from "../store/userSlice";
 
 function UpDateUser({ userId }) {
   const [user, setUser] = useState({});
@@ -29,16 +28,16 @@ function UpDateUser({ userId }) {
 
   const handleSave = () => {
     const userRef = ref(database, `users/${userId}`);
-const updateData = {
-  name: name,
-  email: email
-}
+    const updateData = {
+      name: name,
+      email: email,
+    };
 
-    updateProfile(userRef, updateData)
+    update(userRef, updateData)
       .then(() => {
         if (userId) {
           console.log(userId);
-          
+          dispatch(getUserFromDB(userId));
         }
         console.log("Дані оновлено.");
       })
