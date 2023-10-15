@@ -9,12 +9,14 @@ const productsSlice = createSlice({
         items: [],
         filtedProducts: []
     },
-    reducers:{
-        installValue(state, action){
-           state.items = action.payload;
-           console.log( state.items);
+
+    reducers: {
+        installValue(state, action) {
+            state.items = action.payload;
+            console.log(state.items);
+
         },
-        filtedProd(state, action){
+        filtedProd(state, action) {
             state.filtedProducts = action.payload;
         }
     }
@@ -24,19 +26,54 @@ const cartSlice = createSlice({
     initialState: {
         items: [],
         totalQuantity: 0,
-        totalAmount: 0,
+        totalPrice: 0,
         isVisible: false
     },
     reducers: {
-    addCart(state,action){
-   let product = action.payload;
-   let b = [];
-   b.push(product);
-   state.items = [...state.items, ...b]
-console.log(state.items)
-}
 
-    }})
+        addCart(state, action) {
+            let product = action.payload;
+            function addProduct() {
+                let b = [];
+                b.push(product);
+                state.items = [...state.items, ...b]
+                state.totalPrice += product.price;
+            }
+            if (state.items.length > 0) {
+                let check = state.items.find((e) => e.name == product.name);
+                if (check) {
+                    check.quantity++;
+                    state.totalPrice += product.price;
+                    console.log(state.totalPrice)
+                } else {
+                    addProduct()
+                }
+            } else {
+                addProduct()
+            }
+            state.totalQuantity++;
+
+        },
+        updateCart(state, action) {
+            let check = state.items.find((e) => e.name == action.payload.name);
+            console.log(check.quantity)
+            if (check.quantity < action.payload.quantity) {
+                state.totalPrice += check.price;
+            } else if (check.quantity > action.payload.quantity) {
+                state.totalPrice -= check.price;
+            }
+            check.quantity = action.payload.quantity;
+
+
+        },
+        deleteProduct(state, action){
+            console.log(action.payload.name)
+            let check = state.items.filter((e) => e.name !== action.payload.name);
+            state.items = check;
+            state.totalPrice -=action.payload.sumPrice;
+        }
+    }
+})
 
 const store = configureStore({
     reducer: {

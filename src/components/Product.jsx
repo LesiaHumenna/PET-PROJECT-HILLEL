@@ -17,6 +17,7 @@ function Product({props}){
     e.preventDefault();
   console.log(e.target);
   dispatch(cartActions.addCart({
+    image: props.image,
     name: props.name,
     price: props.price,
     quantity: 1
@@ -40,7 +41,8 @@ function Product({props}){
                   </p>
                   <div className="options">
                     <h6>
-                    {props['price']}
+                    $ {props['price']}
+
                     </h6>
                     <a href="" onClick={handleOnClick} style={{color: "white"}}>
                      {cart}
