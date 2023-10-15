@@ -49,12 +49,6 @@ export const userSlice = createSlice({
         }               
 
 
-  if (userToUpdate) {
-    userToUpdate.name = name;
-    userToUpdate.email = email;
-    userToUpdate.orders = orders;
-    console.log(userToUpdate)
-  }
 }
     },
   },
