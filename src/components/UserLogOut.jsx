@@ -9,10 +9,12 @@ import {useNavigate } from "react-router-dom";
 
 function UserLogOut({user}) {
   const dispatch = useDispatch();
-  const { userId, email } = useParams();
+
+ // const { userId } = useParams();
+
   const navigate = useNavigate();
 
-  console.log(userId);
+  console.log(user.userId);
 
     const handleLogout = () => {
       auth.signOut()
@@ -26,15 +28,17 @@ function UserLogOut({user}) {
     };
 
     const handleEditUser = () => {
-      dispatch(userActions.updateUser({userId, name, email}));
-      navigate(`/update/${userId}`);
+
+      dispatch(userActions.updateUser(user));
+      navigate('/update'); 
+
     };
     
   return (
     <div>
       <NavDropdown title="User Page" id="basic-nav-user">
       <NavDropdown.Header>Welcome, {user.name}!</NavDropdown.Header>
-      <NavDropdown.Item href="#action/3.1" onClick={handleEditUser} >UpDate</NavDropdown.Item>
+      <NavDropdown.Item  onClick={handleEditUser} >UpDate</NavDropdown.Item>
         <NavDropdown.Divider />
         <NavDropdown.Item href="#" onClick={handleLogout}>LogOut</NavDropdown.Item>
       </NavDropdown>
