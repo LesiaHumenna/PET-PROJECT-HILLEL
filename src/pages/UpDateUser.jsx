@@ -1,20 +1,21 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { ref, get, update } from "firebase/database";
+import { ref, get, updateProfile } from "firebase/database";
 import { database } from "/src/API/firebase";
-import { useParams } from "react-router-dom";
-import OurMenu from "../components/OurMenu";
+import { useDispatch } from 'react-redux';
+import { getUserFromDB } from '../store/userSlice';
 
-function UpDateUser() {
+
+function UpDateUser({ userId }) {
   const [user, setUser] = useState({});
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const dispatch = useDispatch();
 
-  const { userId } = useParams();
+  //const { userId } = useParams();
 
   useEffect(() => {
     const userRef = ref(database, `users/${userId}`);
-
     get(userRef).then((snapshot) => {
       if (snapshot.exists()) {
         const userData = snapshot.val();
@@ -28,8 +29,17 @@ function UpDateUser() {
 
   const handleSave = () => {
     const userRef = ref(database, `users/${userId}`);
-    update(userRef, { name: name, email: email })
+const updateData = {
+  name: name,
+  email: email
+}
+
+    updateProfile(userRef, updateData)
       .then(() => {
+        if (userId) {
+          console.log(userId);
+          
+        }
         console.log("Дані оновлено.");
       })
       .catch((error) => {
