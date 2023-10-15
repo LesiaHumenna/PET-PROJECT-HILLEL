@@ -123,13 +123,13 @@ const dispatch = useDispatch();
                     </NavLink>                  
                   </li>
                   <li className="nav-item">
-            <a
+            <NavLink to="/about"
               className="nav-link"
               style={computeLinkStyle("/about")}
-              href="/about"
+             
             >
               About
-            </a>
+            </NavLink>
           </li>
 
           <li className="nav-item">

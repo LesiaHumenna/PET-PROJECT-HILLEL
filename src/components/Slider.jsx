@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
 
 
 const slidesData = [
@@ -43,7 +44,7 @@ const Slider = () => {
                       <h1>{slide.header}</h1>
                       <p>{slide.text}</p>
                       <div className="btn-box">
-                        <a href="#" className="btn1">Order Now</a>
+                        <NavLink to="/menu" className="btn1">Order Now</NavLink>
                       </div>
                     </div>
                   </div>
