@@ -2,19 +2,26 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { ref, get, update } from "firebase/database";
 import { database } from "/src/API/firebase";
-import { useDispatch } from "react-redux";
-import { getUserFromDB } from "../store/userSlice";
+import { useDispatch } from 'react-redux';
+import { getUserFromDB } from '../store/userSlice';
+import { useSelector } from "react-redux/es/hooks/useSelector";
+import { Col, Container, Nav, Row, Tab } from 'react-bootstrap';
+import { getAuth, updateProfile } from "firebase/auth";
 
-function UpDateUser({ userId }) {
+function UpDateUser() {
+   const dispatch = useDispatch();
   const [user, setUser] = useState({});
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const dispatch = useDispatch();
 
-  //const { userId } = useParams();
+  const [name, setName] = useState(user.name);
+  const [email, setEmail] = useState(user.email);
+  const user1 = useSelector(state => state.user)
+  
+console.log(user1.userId);
 
   useEffect(() => {
-    const userRef = ref(database, `users/${userId}`);
+    const userRef = ref(database, `users/${user1.userId}`);
+
+
     get(userRef).then((snapshot) => {
       if (snapshot.exists()) {
         const userData = snapshot.val();
@@ -23,21 +30,24 @@ function UpDateUser({ userId }) {
         setEmail(userData.email);
       }
     });
-  }, [userId]);
-  console.log(userId);
+  }, [user1.userId]);
+
 
   const handleSave = () => {
-    const userRef = ref(database, `users/${userId}`);
+
+    const userRef = ref(database, `users/${user1.userId}`);
     const updateData = {
       name: name,
       email: email,
     };
 
     update(userRef, updateData)
+
+   
       .then(() => {
-        if (userId) {
-          console.log(userId);
-          dispatch(getUserFromDB(userId));
+        if (user1.userId) {
+          console.log(user1.userId);
+          dispatch(getUserFromDB(user1.userId));
         }
         console.log("Дані оновлено.");
       })
@@ -46,7 +56,12 @@ function UpDateUser({ userId }) {
       });
   };
   return (
-    <div>
+
+    <>
+    <Container className='m-5'>
+            <Row className='justify-content-center'>
+                <Col sm={8} md={6}>
+
       <h2>Edit User</h2>
       <div>
         <label>Name:</label>
@@ -63,7 +78,10 @@ function UpDateUser({ userId }) {
         />
       </div>
       <button onClick={handleSave}>Save</button>
-    </div>
+    </ Col>
+    </ Row>
+    </ Container>
+   </>
   );
 }
 
