@@ -5,7 +5,12 @@ import Menu from "./pages/Menu";
 import Shop from "./pages/Shop";
 import HeaderUser from "./pages/HeaderUser";
 import BookTable from "./pages/BookTable";
+
 import UpDateUser from "./pages/UpDateUser";
+
+import Search from "./pages/Search";
+import AboutUs from "./pages/AboutUs";
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -32,10 +37,20 @@ const router = createBrowserRouter([
         element: <HeaderUser />
       },
       {
+
         path: "/update:id",
         element: <UpDateUser />
       },
 
+
+        path: "/search",
+        element: <Search />
+      },
+      {
+        path: "/about",
+        element: <AboutUs />
+      }
+master
     ]
   }
 ])
