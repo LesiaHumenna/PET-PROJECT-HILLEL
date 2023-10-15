@@ -10,7 +10,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import {useSelector} from "react-redux";
-import UserLogIn from './UserLogIn';
+import UserLogOut from './UserLogOut';
 //import { useDispatch } from 'react-redux'
 
 const userIcon = <FontAwesomeIcon icon={faUser} />;
@@ -125,7 +125,7 @@ const user = useSelector(state => state.user);
                    {!user.isLoggedIn && <NavLink to="/login" className="user_link">
                     {userIcon}
                   </NavLink>}
-                  {user.isLoggedIn && <UserLogIn user={user} />}
+                  {user.isLoggedIn && <UserLogOut user={user} />}
                   <NavLink to="/shop" className="user_link">
                     {cart}
                   </NavLink>

@@ -9,7 +9,8 @@ export const userSlice = createSlice({
         email: '',
         userId: '',
         orders: [],
-        cart: ''
+        cart: '',
+        user: []
     },
     reducers: {
         setActiveUser(state, action) {
@@ -27,9 +28,19 @@ export const userSlice = createSlice({
             state.userId = '';
             state.orders = '';
             state.cart = '';
-        }
+        },
+        updateUser(state, action) {
+            const { userId, name, email } = action.payload;
+            state.isLoggedIn = true;
+            state.name = action.payload.name
+            state.email = action.payload.email
+            state.userId = action.payload.userId
+            console.log(userId)
+        }               
+
     }
-});
+}
+    )          
 //function return another function/ call dispatch in Root
 export const getUserFromDB = (userId) => {
     return async (dispatch) => {

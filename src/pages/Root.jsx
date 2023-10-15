@@ -18,7 +18,7 @@ function Root (){
                 console.log('No User!');
             }
         });
-    }, []);
+    }, [dispatch]);
     return(
         <>
         <ToastContainer autoClose={2000} />
