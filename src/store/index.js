@@ -9,10 +9,12 @@ const productsSlice = createSlice({
         items: [],
         filtedProducts: []
     },
+
     reducers: {
         installValue(state, action) {
             state.items = action.payload;
             console.log(state.items);
+
         },
         filtedProd(state, action) {
             state.filtedProducts = action.payload;
@@ -28,6 +30,7 @@ const cartSlice = createSlice({
         isVisible: false
     },
     reducers: {
+
         addCart(state, action) {
             let product = action.payload;
             function addProduct() {
@@ -60,6 +63,7 @@ const cartSlice = createSlice({
                 state.totalPrice -= check.price;
             }
             check.quantity = action.payload.quantity;
+
 
         },
         deleteProduct(state, action){

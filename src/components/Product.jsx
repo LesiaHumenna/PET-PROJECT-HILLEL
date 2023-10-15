@@ -42,6 +42,7 @@ function Product({props}){
                   <div className="options">
                     <h6>
                     $ {props['price']}
+
                     </h6>
                     <a href="" onClick={handleOnClick} style={{color: "white"}}>
                      {cart}
