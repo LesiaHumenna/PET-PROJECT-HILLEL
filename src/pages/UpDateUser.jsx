@@ -2,10 +2,14 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { ref, get, update } from "firebase/database";
 import { database } from "/src/API/firebase";
+import { useDispatch } from 'react-redux';
+import { getUserFromDB } from '../store/userSlice';
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { Col, Container, Nav, Row, Tab } from 'react-bootstrap';
 import { getAuth, updateProfile } from "firebase/auth";
+
 function UpDateUser() {
+   const dispatch = useDispatch();
   const [user, setUser] = useState({});
 
   const [name, setName] = useState(user.name);
@@ -16,6 +20,7 @@ console.log(user1.userId);
 
   useEffect(() => {
     const userRef = ref(database, `users/${user1.userId}`);
+
 
     get(userRef).then((snapshot) => {
       if (snapshot.exists()) {
@@ -29,9 +34,21 @@ console.log(user1.userId);
 
 
   const handleSave = () => {
+
     const userRef = ref(database, `users/${user1.userId}`);
-    update(userRef, { name: name, email: email })
+    const updateData = {
+      name: name,
+      email: email,
+    };
+
+    update(userRef, updateData)
+
+   
       .then(() => {
+        if (user1.userId) {
+          console.log(user1.userId);
+          dispatch(getUserFromDB(user1.userId));
+        }
         console.log("Дані оновлено.");
       })
       .catch((error) => {
