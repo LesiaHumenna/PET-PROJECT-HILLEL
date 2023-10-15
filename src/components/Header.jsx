@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import Logo from "../images/hero-bg.jpg";
 import Slider from "./Slider";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation} from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
@@ -9,16 +9,17 @@ import {
   faCartShopping,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import UserLogIn from './UserLogIn';
-import { useDispatch, useSelector } from 'react-redux'
+import UserLogOut from './UserLogOut';
+
+import { useDispatch, useSelector} from 'react-redux'
 import {productsActions} from '../store/index'
+
 const userIcon = <FontAwesomeIcon icon={faUser} />;
 const cart = <FontAwesomeIcon icon={faCartShopping} />;
 const search = <FontAwesomeIcon icon={faMagnifyingGlass} />;
 
 // eslint-disable-next-line react/prop-types
 function Header() {
-const navigate = useNavigate();
 const user = useSelector(state => state.user);
 const arrayProducts = useSelector(state => state.products.items);
 
@@ -146,7 +147,7 @@ const dispatch = useDispatch();
                    {!user.isLoggedIn && <NavLink to="/login" className="user_link">
                     {userIcon}
                   </NavLink>}
-                  {user.isLoggedIn && <UserLogIn user={user} />}
+                  {user.isLoggedIn && <UserLogOut user={user} />}
                   <NavLink to="/shop" className="user_link">
                     {cart}
                   </NavLink>
