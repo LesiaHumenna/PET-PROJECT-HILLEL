@@ -6,6 +6,7 @@ import {useEffect} from 'react';
 import { auth } from "/src/API/firebase";
 import { useDispatch } from 'react-redux';
 import { getUserFromDB } from '../store/userSlice';
+import Footer from "../components/Footer";
 
 function Root (){
     const dispatch = useDispatch();
@@ -24,6 +25,7 @@ function Root (){
         <ToastContainer autoClose={2000} />
         <Header />
         <Outlet /> 
+        <Footer />
         </>
     )
 }
