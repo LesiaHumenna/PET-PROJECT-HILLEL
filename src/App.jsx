@@ -37,12 +37,11 @@ const router = createBrowserRouter([
         element: <HeaderUser />
       },
       {
-
         path: "/update:id",
         element: <UpDateUser />
       },
 
-
+{
         path: "/search",
         element: <Search />
       },
@@ -50,7 +49,7 @@ const router = createBrowserRouter([
         path: "/about",
         element: <AboutUs />
       }
-master
+
     ]
   }
 ])
