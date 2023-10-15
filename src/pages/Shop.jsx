@@ -1,9 +1,17 @@
 import { useSelector } from "react-redux";
-
+import { useState } from "react";
+import CartP from "../components/CartP";
 function Shop(){
-    let cart = useSelector((state) => state.cart);
+    let products = false;
+    let cart = useSelector((state) => state.cart.items);
+    const cartPrice = useSelector(state => state.cart.totalPrice)
     // add elements from store to cart
-console.log(cart.items)
+if(cart.length > 0){
+    products = true;
+   
+console.log(cartPrice)
+}
+
     return(
         <>
          <section className="book_section layout_padding">
@@ -26,94 +34,15 @@ console.log(cart.items)
                                     <th></th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td className="product__cart__item">
-                                        <div className="product__cart__item__pic">
-                                            <img src="img/shop/cart/cart-1.jpg" alt=""/>
-                                        </div>
-                                        <div className="product__cart__item__text">
-                                            <h6>T-shirt Contrast Pocket</h6>
-                                            <h5>$98.49</h5>
-                                        </div>
-                                    </td>
-                                    <td className="quantity__item">
-                                        <div className="quantity">
-                                            <div className="pro-qty"><span className="dec qtybtn">-</span>
-                                                <input type="text" value="1" />
-                                            <span className="inc qtybtn">+</span></div>
-                                        </div>
-                                    </td>
-                                    <td className="cart__price">$ 30.00</td>
-                                    <td><span className="btn btn-warning">del</span></td>
-                                </tr>
-                                <tr>
-                                    <td className="product__cart__item">
-                                        <div className="product__cart__item__pic">
-                                            <img src="img/shop/cart/cart-2.jpg" alt="" />
-                                        </div>
-                                        <div className="product__cart__item__text">
-                                            <h6>Diagonal Textured Cap</h6>
-                                            <h5>$98.49</h5>
-                                        </div>
-                                    </td>
-                                    <td className="quantity__item">
-                                        <div className="quantity">
-                                            <div className="pro-qty"><span className="dec qtybtn">-</span>
-                                                <input type="text" value="1" />
-                                            <span className="inc qtybtn">+</span></div>
-                                        </div>
-                                    </td>
-                                    <td className="cart__price">$ 32.50</td>
-                                    <td ><span className="btn btn-warning">del</span></td>
-                                </tr>
-                                <tr>
-                                    <td className="product__cart__item">
-                                        <div className="product__cart__item__pic">
-                                            <img src="img/shop/cart/cart-3.jpg" alt="" />
-                                        </div>
-                                        <div className="product__cart__item__text">
-                                            <h6>Basic Flowing Scarf</h6>
-                                            <h5>$98.49</h5>
-                                        </div>
-                                    </td>
-                                    <td className="quantity__item">
-                                        <div className="quantity">
-                                            <div className="pro-qty"><span className="dec qtybtn">-</span>
-                                                <input type="text" value="1" />
-                                            <span className="inc qtybtn">+</span></div>
-                                        </div>
-                                    </td>
-                                    <td className="cart__price">$ 47.00</td>
-                                    <td ><span className="btn btn-warning">del</span></td>
-                                </tr>
-                                <tr>
-                                    <td className="product__cart__item">
-                                        <div className="product__cart__item__pic">
-                                            <img src="img/shop/cart/cart-4.jpg" alt="" />
-                                        </div>
-                                        <div className="product__cart__item__text">
-                                            <h6>Basic Flowing Scarf</h6>
-                                            <h5>$98.49</h5>
-                                        </div>
-                                    </td>
-                                    <td className="quantity__item">
-                                        <div className="quantity">
-                                            <div className="pro-qty"><span className="dec qtybtn">-</span>
-                                                <input type="text" value="1" />
-                                            <span className="inc qtybtn">+</span></div>
-                                        </div>
-                                    </td>
-                                    <td className="cart__price">$ 30.00</td>
-                                    <td ><span className="btn btn-warning">del</span></td>
-                                </tr>
+                            <tbody >
+                              {products && cart.map((item) => <CartP product={item} />)} 
                             </tbody>
                         </table>
                     </div>
                     <div className="row">
                         <div className="col-lg-6 col-md-6 col-sm-6">
                             <div className="continue__btn">
-                                <a href="#">Continue Shopping</a>
+                                <a>Total price: $ {cartPrice} </a>
                             </div>
                         </div>
                         <div className="col-lg-6 col-md-6 col-sm-6">
