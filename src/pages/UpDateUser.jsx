@@ -7,11 +7,13 @@ import { Col, Container, Nav, Row, Tab } from 'react-bootstrap';
 import { getAuth, updateProfile } from "firebase/auth";
 function UpDateUser() {
   const [user, setUser] = useState({});
+
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
   const user1 = useSelector(state => state.user)
   
 console.log(user1.userId);
+
   useEffect(() => {
     const userRef = ref(database, `users/${user1.userId}`);
 
@@ -30,17 +32,19 @@ console.log(user1.userId);
     const userRef = ref(database, `users/${user1.userId}`);
     update(userRef, { name: name, email: email })
       .then(() => {
-        console.log("Дані користувача оновлено.");
+        console.log("Дані оновлено.");
       })
       .catch((error) => {
         console.error("Помилка під час оновлення даних:", error);
       });
   };
   return (
+
     <>
     <Container className='m-5'>
             <Row className='justify-content-center'>
                 <Col sm={8} md={6}>
+
       <h2>Edit User</h2>
       <div>
         <label>Name:</label>

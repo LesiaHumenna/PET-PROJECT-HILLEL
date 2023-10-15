@@ -5,11 +5,13 @@ import { auth } from "/src/API/firebase";
 import { userActions } from "../store";
 import { useParams } from "react-router-dom";
 import {useNavigate } from "react-router-dom";
-import UpDateUser from "../pages/UpDateUser";
+
 
 function UserLogOut({user}) {
   const dispatch = useDispatch();
+
  // const { userId } = useParams();
+
   const navigate = useNavigate();
 
   console.log(user.userId);
@@ -26,8 +28,10 @@ function UserLogOut({user}) {
     };
 
     const handleEditUser = () => {
+
       dispatch(userActions.updateUser(user));
       navigate('/update'); 
+
     };
     
   return (
