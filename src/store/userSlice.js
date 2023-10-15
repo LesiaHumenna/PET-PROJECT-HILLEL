@@ -30,12 +30,12 @@ export const userSlice = createSlice({
             state.cart = '';
         },
         updateUser(state, action) {
-            const { userId, name, email } = action.payload;
             state.isLoggedIn = true;
             state.name = action.payload.name
-            state.email = action.payload.email
-            state.userId = action.payload.userId
-            console.log(userId)
+            state.email = action.payload.email,
+            state.userId = action.payload.userId,
+            state.orders = action.payload.orders
+            
         }               
 
     }
