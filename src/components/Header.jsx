@@ -10,10 +10,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import UserLogOut from './UserLogOut';
-
 import { useDispatch, useSelector} from 'react-redux'
 import {productsActions} from '../store/index'
-
+//import { Badge} from 'react-bootstrap';
 const userIcon = <FontAwesomeIcon icon={faUser} />;
 const cart = <FontAwesomeIcon icon={faCartShopping} />;
 const search = <FontAwesomeIcon icon={faMagnifyingGlass} />;

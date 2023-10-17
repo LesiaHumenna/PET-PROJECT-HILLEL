@@ -48,7 +48,7 @@ console.log(cartPrice)
                         </div>
                         <div className="col-lg-6 col-md-6 col-sm-6">
                             <div className="continue__btn update__btn">
-                                <a href="#"><i className="fa fa-spinner"></i> Update cart</a>
+                                <a href="#"><i className="fa fa-spinner"></i> Update cart </a>
                             </div>
                         </div>
                     </div>

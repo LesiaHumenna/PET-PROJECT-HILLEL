@@ -5,23 +5,27 @@ import {
   faCartShopping,
 } from "@fortawesome/free-solid-svg-icons";
 const cart = <FontAwesomeIcon icon={faCartShopping} />;
-import { useSelector, useDispatch } from 'react-redux';
+import {useDispatch } from 'react-redux';
 import { cartActions } from "../store/index";
 
 
 
 function Product({props}){
   const dispatch = useDispatch();
+
   function handleOnClick(e){
  
     e.preventDefault();
   console.log(e.target);
   dispatch(cartActions.addCart({
+    id: props.id,
     image: props.image,
     name: props.name,
     price: props.price,
     quantity: 1
   }));
+dispatch(cartActions.show())
+
   }
 
 
@@ -45,7 +49,7 @@ function Product({props}){
 
                     </h6>
                     <a href="" onClick={handleOnClick} style={{color: "white"}}>
-                     {cart}
+                    {cart}
                     </a>
                   </div>
                 </div>
