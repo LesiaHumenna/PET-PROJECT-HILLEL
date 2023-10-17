@@ -69,7 +69,7 @@ function SignUp() {
           );
           updateProfile(auth.currentUser, {
             displayName: name
-        })
+          })
         .then(() => {
           toast.success(`Welcome back, ${user.displayName} 😃!`);
           console.log('Profile updated');
