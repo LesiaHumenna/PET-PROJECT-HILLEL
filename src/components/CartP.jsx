@@ -2,8 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { cartActions } from "../store/index";
 function CartP({product}){
-
-   
+  
 const dispatch = useDispatch();
 const [quantityProduct, setQuantityProduct] = useState(product.quantity)
 function handleUpdateCart(q){
@@ -29,7 +28,9 @@ function handleDelete(){
       }));
 }
   console.log(product['image'])
+const handleBuy = () => {
 
+}
     return(
         <>
           <tr>
@@ -45,7 +46,7 @@ function handleDelete(){
                                     <td className="quantity__item">
                                         <div className="quantity">
                                             <div className="pro-qty"><span className="dec qtybtn" onClick={() => {handleUpdateCart('minus')}} >-</span>
-                                                <input type="text" value={quantityProduct} />
+                                                <input type="text" defaultValue={quantityProduct} />
                                             <span className="inc qtybtn" onClick={() => {handleUpdateCart('plus')}}>+</span></div>
                                         </div>
                                     </td>

@@ -9,9 +9,6 @@ import {useNavigate } from "react-router-dom";
 
 function UserLogOut({user}) {
   const dispatch = useDispatch();
-
- // const { userId } = useParams();
-
   const navigate = useNavigate();
 
   console.log(user.userId);

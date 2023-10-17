@@ -12,9 +12,7 @@ import { toast } from 'react-toastify';
 
 function Product({props}){
   const dispatch = useDispatch();
-
   function handleOnClick(e){
- 
     e.preventDefault();
   console.log(e.target);
   dispatch(cartActions.addCart({

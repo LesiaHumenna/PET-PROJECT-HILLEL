@@ -66,12 +66,11 @@ const cartSlice = createSlice({
       state.items = check;
       state.totalPrice -= action.payload.sumPrice;
     },
-    show(state) {
-      state.isVisible = true;
-    },
-    hide(state) {
-      state.isVisible = false;
-      console.log("Hiding cart");
+    clearCart(state) {
+      state.items = [],
+      state.totalQuantity = 0,
+      state.totalPrice = 0,
+      state.isVisible = false
     },
    },
 });
