@@ -24,7 +24,7 @@ function Product({props}){
     price: props.price,
     quantity: 1
   }));
-  toast.success(` ${props.name} in the cart🛒!`);
+  toast.success(` ${props.name} in the cart 🛒!`);
 
   }
 

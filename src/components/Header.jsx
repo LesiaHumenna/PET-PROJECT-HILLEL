@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import Logo from "../images/hero-bg.jpg";
 import Slider from "./Slider";
-import { useLocation} from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
@@ -9,23 +9,22 @@ import {
   faCartShopping,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import UserLogOut from './UserLogOut';
-import { useDispatch, useSelector} from 'react-redux'
-import {productsActions} from '../store/index'
-//import { Badge} from 'react-bootstrap';
+import UserLogOut from "./UserLogOut";
+import { useDispatch, useSelector } from "react-redux";
+import { productsActions } from "../store/index";
+import { Badge } from "react-bootstrap";
 const userIcon = <FontAwesomeIcon icon={faUser} />;
-const cart = <FontAwesomeIcon icon={faCartShopping} />;
+const cartIcon = <FontAwesomeIcon icon={faCartShopping} />;
 const search = <FontAwesomeIcon icon={faMagnifyingGlass} />;
 
 // eslint-disable-next-line react/prop-types
 function Header() {
-const user = useSelector(state => state.user);
-const arrayProducts = useSelector(state => state.products.items);
-
-const dispatch = useDispatch();
-
+  const user = useSelector((state) => state.user);
+  const arrayProducts = useSelector((state) => state.products.items);
+  const cartQuant = useSelector((state) => state.cart.totalQuantity);
+  const dispatch = useDispatch();
   const location = useLocation();
- 
+
   let background = false;
   let heightHerou = {
     minHeight: "100vh",
@@ -39,15 +38,17 @@ const dispatch = useDispatch();
   }
 
   const computeLinkStyle = (path, exact = false) => {
-    const isActive = exact ? location.pathname === path : location.pathname.startsWith(path);
-    return { color: isActive ? '#ffbe33' : 'white' };
+    const isActive = exact
+      ? location.pathname === path
+      : location.pathname.startsWith(path);
+    return { color: isActive ? "#ffbe33" : "white" };
   };
 
   const colorBackground = {
     backgroundColor: "black",
   };
 
-  const [searchText, setSearchText] = useState(' ');
+  const [searchText, setSearchText] = useState(" ");
   const [searchProd, setSearchProd] = useState(false);
   const [filtredProd, setFilterProd] = useState([]);
   const searchClick = (e) => {
@@ -56,25 +57,25 @@ const dispatch = useDispatch();
   };
   const handleChange = (e) => {
     setSearchText(e.target.value);
-    if(arrayProducts){
-    const filtered = arrayProducts.filter((product) =>
-    product.name.toLowerCase().includes(e.target.value.trim())
+    if (arrayProducts) {
+      const filtered = arrayProducts.filter((product) =>
+        product.name.toLowerCase().includes(e.target.value.trim())
       );
-    console.log(filtered)
+      console.log(filtered);
       setFilterProd(filtered);
-  }
+    }
   };
 
-  function searchNow(e){
+  function searchNow(e) {
     e.preventDefault();
-    if(filtredProd.length > 0){
-      console.log(filtredProd)
+    if (filtredProd.length > 0) {
+      console.log(filtredProd);
       const products = filtredProd;
       dispatch(productsActions.filtedProd(filtredProd));
-  //navigate(`/search/?${searchText}`);
+      //navigate(`/search/?${searchText}`);
     }
   }
-
+ 
 
   return (
     <>
@@ -107,48 +108,61 @@ const dispatch = useDispatch();
                 className="collapse navbar-collapse"
                 id="navbarSupportedContent"
               >
-              <ul className="navbar-nav  mx-auto ">
+                <ul className="navbar-nav  mx-auto ">
                   <li className="nav-item">
                     <NavLink
-                     className="nav-link"
-                     style={computeLinkStyle("/", true)}
-                      to="/" exact>
+                      className="nav-link"
+                      style={computeLinkStyle("/", true)}
+                      to="/"
+                      exact
+                    >
                       Home <span className="sr-only">(current)</span>
                     </NavLink>
                   </li>
 
                   <li className="nav-item">
-                    <NavLink className="nav-link" style={computeLinkStyle("/menu")} to="/menu">
+                    <NavLink
+                      className="nav-link"
+                      style={computeLinkStyle("/menu")}
+                      to="/menu"
+                    >
                       Menu
-                    </NavLink>                  
+                    </NavLink>
                   </li>
                   <li className="nav-item">
-            <NavLink to="/about"
-              className="nav-link"
-              style={computeLinkStyle("/about")}
-             
-            >
-              About
-            </NavLink>
-          </li>
+                    <NavLink
+                      to="/about"
+                      className="nav-link"
+                      style={computeLinkStyle("/about")}
+                    >
+                      About
+                    </NavLink>
+                  </li>
 
-          <li className="nav-item">
-            <NavLink
-              className="nav-link"
-              style={computeLinkStyle("/booktable")}
-              to="/booktable"
-            >
-              Book Table
-            </NavLink>
-          </li>
-        </ul>
+                  <li className="nav-item">
+                    <NavLink
+                      className="nav-link"
+                      style={computeLinkStyle("/booktable")}
+                      to="/booktable"
+                    >
+                      Book Table
+                    </NavLink>
+                  </li>
+                </ul>
                 <div className="user_option">
-                   {!user.isLoggedIn && <NavLink to="/login" className="user_link">
-                    {userIcon}
-                  </NavLink>}
+                  {!user.isLoggedIn && (
+                    <NavLink to="/login" className="user_link">
+                      {userIcon}
+                    </NavLink>
+                  )}
                   {user.isLoggedIn && <UserLogOut user={user} />}
                   <NavLink to="/shop" className="user_link">
-                    {cart}
+                  {cartIcon}
+                  
+                    {cartQuant > 0 && (
+                      <Badge bg="secondary">{cartQuant}</Badge>
+                    )}
+                    <span className="visually-hidden"></span>
                   </NavLink>
 
                   <form className="form-inline">
@@ -182,11 +196,14 @@ const dispatch = useDispatch();
                     onChange={handleChange}
                     value={searchText}
                   />
-                  <button onClick={(e)=> {searchNow(e)}}
+                  <button
+                    onClick={(e) => {
+                      searchNow(e);
+                    }}
                     className="btn btn-outline-success my-2 my-sm-0"
                     type="submit"
                   >
-                    <NavLink to="search">Search</NavLink> 
+                    <NavLink to="search">Search</NavLink>
                   </button>
                 </form>
               </nav>
