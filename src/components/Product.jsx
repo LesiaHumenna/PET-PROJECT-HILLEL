@@ -7,7 +7,7 @@ import {
 const cart = <FontAwesomeIcon icon={faCartShopping} />;
 import {useDispatch } from 'react-redux';
 import { cartActions } from "../store/index";
-
+import { toast } from 'react-toastify';
 
 
 function Product({props}){
@@ -24,7 +24,7 @@ function Product({props}){
     price: props.price,
     quantity: 1
   }));
-dispatch(cartActions.show())
+  toast.success(` ${props.name} in the cart🛒!`);
 
   }
 

@@ -7,7 +7,6 @@ import { auth } from "/src/API/firebase";
 import { useDispatch } from 'react-redux';
 import { getUserFromDB } from '../store/userSlice';
 import Footer from "../components/Footer";
-import CartModal from "../components/Cart/CartModal";
 
 function Root (){
     const dispatch = useDispatch();
@@ -24,7 +23,7 @@ function Root (){
     return(
         <>
         <ToastContainer autoClose={2000} />
-        <CartModal/>
+
         <Header />
         <Outlet /> 
         <Footer />
