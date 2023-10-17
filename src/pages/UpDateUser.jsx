@@ -11,7 +11,6 @@ import { getAuth, updateProfile } from "firebase/auth";
 function UpDateUser() {
    const dispatch = useDispatch();
   const [user, setUser] = useState({});
-
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
   const user1 = useSelector(state => state.user)
