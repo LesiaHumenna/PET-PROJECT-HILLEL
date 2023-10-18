@@ -9,8 +9,12 @@ function handleUpdateCart(q){
     let quantityP = quantityProduct;
     if(q === 'minus'){
         quantityP = quantityProduct-1;
-      // if(quantity === 0) 
+      if(quantityP === 0) {
+        handleDelete()
+      }else{
         setQuantityProduct(quantityP)
+      }
+       
     }else if(q === 'plus'){
          quantityP = quantityProduct+1;
         setQuantityProduct(quantityP)
@@ -46,7 +50,7 @@ const handleBuy = () => {
                                     <td className="quantity__item">
                                         <div className="quantity">
                                             <div className="pro-qty"><span className="dec qtybtn" onClick={() => {handleUpdateCart('minus')}} >-</span>
-                                                <input type="text" defaultValue={quantityProduct} />
+                                                <input type="text" defaultValue={quantityProduct} value={quantityProduct} />
                                             <span className="inc qtybtn" onClick={() => {handleUpdateCart('plus')}}>+</span></div>
                                         </div>
                                     </td>
