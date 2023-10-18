@@ -5,17 +5,28 @@ import { cartActions } from "../store/index";
 import { useDispatch} from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-
+import { ref, get, update } from "firebase/database";
+import { database } from "/src/API/firebase";
 function Shop() {
   let products = false;
   let cart = useSelector((state) => state.cart.items);
+const orders = JSON.stringify(cart);
   const cartPrice = useSelector((state) => state.cart.totalPrice);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const user1 = useSelector(state => state.user)
+  console.log(user1);
   const userName = useSelector((state) => state.user.displayName);
 console.log(userName)
   const handleBuy = () => {
-    toast.success(`Thank ${userName} for your order 🙌!`);
+    toast.success(`Thank ${user1.name} for your order 🙌!`);
+    console.log()
+    const userRef = ref(database, `users/${user1.userId}`);
+    const updateData = {
+      cart: orders
+    };
+    console.log(updateData)
+    update(userRef, updateData)
     dispatch(cartActions.clearCart());
     navigate("/");
   };

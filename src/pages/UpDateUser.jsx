@@ -13,6 +13,7 @@ function UpDateUser() {
   const [user, setUser] = useState({});
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
+  const [cart, setCart] = useState(user.cart);
   const user1 = useSelector(state => state.user)
   
 console.log(user1.userId);
@@ -24,6 +25,7 @@ console.log(user1.userId);
     get(userRef).then((snapshot) => {
       if (snapshot.exists()) {
         const userData = snapshot.val();
+        console.log(userData);
         setUser(userData);
         setName(userData.name);
         setEmail(userData.email);
@@ -38,11 +40,10 @@ console.log(user1.userId);
     const updateData = {
       name: name,
       email: email,
+      cart: []
     };
-
+    console.log(updateData)
     update(userRef, updateData)
-
-   
       .then(() => {
         if (user1.userId) {
           console.log(user1.userId);
