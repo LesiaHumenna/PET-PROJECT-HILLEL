@@ -1255,3 +1255,12 @@ a:focus {
   text-align: center;
   letter-spacing: 2px;
 }
+.dropdown-toggle {
+  color: white
+}
+.dropdown-toggle:hover {
+  color: #ffbe33;
+}
+.dropdown-toggle:visited{
+  color: white;
+}
