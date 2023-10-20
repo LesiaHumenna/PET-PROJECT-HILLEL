@@ -12,7 +12,8 @@ import { useState } from "react";
 import UserLogOut from "./UserLogOut";
 import { useDispatch, useSelector } from "react-redux";
 import { productsActions } from "../store/index";
-import { Badge } from "react-bootstrap";
+
+import { Badge, Navbar, Nav } from 'react-bootstrap';
 const userIcon = <FontAwesomeIcon icon={faUser} />;
 const cartIcon = <FontAwesomeIcon icon={faCartShopping} />;
 const search = <FontAwesomeIcon icon={faMagnifyingGlass} />;
@@ -88,13 +89,14 @@ function Header() {
             <img src={Logo} alt="" />
           </div>
         )}
-        <header className="header_section" style={colorBackground}>
+        {/* <header className="header_section" style={colorBackground}> */}
+        <Navbar expand="lg" className="header_section" bg="dark" variant="dark" >
           <div className="container">
-            <nav className="navbar navbar-expand-lg custom_nav-container ">
+            {/* <nav className="navbar navbar-expand-lg custom_nav-container "> */}
               <NavLink className="navbar-brand" to="/">
                 <span>Feane</span>
               </NavLink>
-
+{/* 
               <button
                 className="navbar-toggler"
                 type="button"
@@ -157,7 +159,31 @@ function Header() {
                     <NavLink to="/login" className="user_link">
                       {userIcon}
                     </NavLink>
+                  )} */}
+                 
+              <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+              <Navbar.Collapse id="responsive-navbar-nav">
+                <Nav className="navbar-nav mx-auto">
+                  <NavLink className="nav-link" style={computeLinkStyle('/', true)} to="/" exact>
+                    Home
+                  </NavLink>
+                  <NavLink className="nav-link" style={computeLinkStyle('/menu')} to="/menu">
+                    Menu
+                  </NavLink>
+                  <NavLink className="nav-link" style={computeLinkStyle('/about')} to="/about">
+                    About
+                  </NavLink>
+                  <NavLink className="nav-link" style={computeLinkStyle('/booktable')} to="/booktable">
+                    Book Table
+                  </NavLink>
+                </Nav>
+                <div className="user_option">
+                  {!user.isLoggedIn && (
+                    <NavLink to="/login" className="user_link">
+                      {userIcon}
+                    </NavLink>
                   )}
+
                   {user.isLoggedIn && <UserLogOut user={user} />}
                   <NavLink to="/shop" className="user_link">
                   {cartIcon}
@@ -165,6 +191,7 @@ function Header() {
                     {cartQuant > 0 && (
                       <Badge bg="secondary">{cartQuant}</Badge>
                     )}
+                    
                     <span className="visually-hidden"></span>
                   </NavLink>
 
@@ -183,10 +210,11 @@ function Header() {
                   +4734567890
                   </a>
                 </div>
-              </div>
-            </nav>
+              </Navbar.Collapse>  
+            </div>
+            </Navbar>
             {searchProd && (
-              <nav
+              <Navbar
                 className="navbar nav_search navbar-light bg-light"
                 style={{ width: "30%", float: "right" }}
               >
@@ -209,15 +237,14 @@ function Header() {
                     <NavLink to="search" style={{color: 'black'}}>Search</NavLink>
                   </button>
                 </form>
-              </nav>
+              </Navbar>
             )}
-          </div>
-        </header>
+             {background && <Slider />}
+          </div>    
+          </>
+        );
+      }
+    
 
-        {background && <Slider />}
-      </div>
-    </>
-  );
-}
 
 export default Header;
