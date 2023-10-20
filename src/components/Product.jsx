@@ -39,7 +39,7 @@ function Product({props}){
                   {props['name']}
                   </h5>
                   <p>
-                    Veniam1 debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
+                  {props['description']}
                   </p>
                   <div className="options">
                     <h6>
