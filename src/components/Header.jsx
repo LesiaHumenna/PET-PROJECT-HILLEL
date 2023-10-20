@@ -45,8 +45,8 @@ function Header() {
     return { color: isActive ? "#ffbe33" : "white" };
   };
 
-  const colorBackground = {
-    backgroundColor: "black",
+  const colorFont = {
+    color: "white",
   };
 
   const [searchText, setSearchText] = useState(" ");
@@ -200,6 +200,8 @@ function Header() {
                       onClick={searchClick}
                       className="btn  my-2 my-sm-0 nav_search-btn"
                       type="submit"
+                      style={colorFont}
+
                     >
                       {search}
                       <i className="fa fa-search" aria-hidden="true"></i>
@@ -214,9 +216,10 @@ function Header() {
             </div>
             </Navbar>
             {searchProd && (
+             <div> 
               <Navbar
                 className="navbar nav_search navbar-light bg-light"
-                style={{ width: "30%", float: "right" }}
+                style={{ width: "auto", float: "right", marginRight: '15%'}}
               >
                 <form className="form-inline">
                   <input
@@ -238,6 +241,7 @@ function Header() {
                   </button>
                 </form>
               </Navbar>
+             </div> 
             )}
              {background && <Slider />}
           </div>    
