@@ -145,7 +145,7 @@ function Header() {
                       style={computeLinkStyle("/booktable")}
                       to="/booktable"
                     >
-                      Book Table
+                      Book Table now!
                     </NavLink>
                   </li>
                 </ul>
