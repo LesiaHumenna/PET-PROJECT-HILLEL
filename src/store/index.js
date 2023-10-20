@@ -55,8 +55,10 @@ const cartSlice = createSlice({
       console.log(check.quantity);
       if (check.quantity < action.payload.quantity) {
         state.totalPrice += check.price;
+        state.totalQuantity++;
       } else if (check.quantity > action.payload.quantity) {
         state.totalPrice -= check.price;
+        state.totalQuantity--;
       }
       check.quantity = action.payload.quantity;
     },
@@ -65,12 +67,14 @@ const cartSlice = createSlice({
       let check = state.items.filter((e) => e.name !== action.payload.name);
       state.items = check;
       state.totalPrice -= action.payload.sumPrice;
+      state.totalQuantity--;
     },
     clearCart(state) {
       state.items = [],
       state.totalQuantity = 0,
       state.totalPrice = 0,
       state.isVisible = false
+      
     },
    },
 });
