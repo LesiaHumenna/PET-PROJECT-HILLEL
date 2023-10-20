@@ -82,22 +82,66 @@ function Header() {
               <NavLink className="navbar-brand" to="/">
                 <span>Feane</span>
               </NavLink>
-              <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-              <Navbar.Collapse id="responsive-navbar-nav">
-                <Nav className="navbar-nav mx-auto">
-                  <NavLink className="nav-link" style={computeLinkStyle('/', true)} to="/" exact>
-                    Home
-                  </NavLink>
-                  <NavLink className="nav-link" style={computeLinkStyle('/menu')} to="/menu">
-                    Menu
-                  </NavLink>
-                  <NavLink className="nav-link" style={computeLinkStyle('/about')} to="/about">
-                    About
-                  </NavLink>
-                  <NavLink className="nav-link" style={computeLinkStyle('/booktable')} to="/booktable">
-                    Book Table
-                  </NavLink>
-                </Nav>
+
+
+              <button
+                className="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <span className=""> </span>
+              </button>
+
+              <div
+                className="collapse navbar-collapse"
+                id="navbarSupportedContent"
+              >
+                <ul className="navbar-nav  mx-auto ">
+                  <li className="nav-item">
+                    <NavLink
+                      className="nav-link"
+                      style={computeLinkStyle("/", true)}
+                      to="/"
+                      exact
+                    >
+                      Home <span className="sr-only">(current)</span>
+                    </NavLink>
+                  </li>
+
+                  <li className="nav-item">
+                    <NavLink
+                      className="nav-link"
+                      style={computeLinkStyle("/menu")}
+                      to="/menu"
+                    >
+                      Menu
+                    </NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink
+                      to="/about"
+                      className="nav-link"
+                      style={computeLinkStyle("/about")}
+                    >
+                      About
+                    </NavLink>
+                  </li>
+
+                  <li className="nav-item">
+                    <NavLink
+                      className="nav-link"
+                      style={computeLinkStyle("/booktable")}
+                      to="/booktable"
+                    >
+                      Book Table now!
+                    </NavLink>
+                  </li>
+                </ul>
+
                 <div className="user_option">
                   {!user.isLoggedIn && (
                     <NavLink to="/login" className="user_link">
