@@ -90,7 +90,7 @@ function Header() {
           </div>
         )}
         {/* <header className="header_section" style={colorBackground}> */}
-        <Navbar expand="lg" className="header_section" bg="dark" variant="dark" >
+        <Navbar expand="lg" className="header_section" variant="dark" >
           <div className="container">
             {/* <nav className="navbar navbar-expand-lg custom_nav-container "> */}
               <NavLink className="navbar-brand" to="/">
