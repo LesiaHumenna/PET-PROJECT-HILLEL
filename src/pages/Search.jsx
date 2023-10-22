@@ -3,9 +3,9 @@ import '../css/bootstrap.css'
 import '../css/style.css'
 import {useSelector} from "react-redux";
 import Product from "../components/Product";
-
 const Search = () => {
     const products = useSelector(state => state.products.filtedProducts);
+    console.log(products)
     return(
         <>
 <h1>Search</h1>
@@ -14,7 +14,7 @@ const Search = () => {
     <div className="filters-content"></div>
 <div className="row grid">
                 {products.map((item) => (
-                  <Product key={item.name} props={item} />
+                  <Product props={item} />
                 ))}
               </div>
               </div>
