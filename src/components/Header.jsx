@@ -44,7 +44,8 @@ function Header() {
       : location.pathname.startsWith(path);
     return { color: isActive ? "#ffbe33" : "white" };
   };
-
+  const colorBackground = {
+    backgroundColor: "black"}
   const colorFont = {
     color: "white",
   };
@@ -90,79 +91,16 @@ function Header() {
           </div>
         )}
         {/* <header className="header_section" style={colorBackground}> */}
-        <Navbar expand="lg" className="header_section" variant="dark" >
+        <Navbar expand="lg" className="header_section" variant="dark" style={colorBackground} >
           <div className="container">
             {/* <nav className="navbar navbar-expand-lg custom_nav-container "> */}
               <NavLink className="navbar-brand" to="/">
                 <span>Feane</span>
               </NavLink>
-{/* 
-              <button
-                className="navbar-toggler"
-                type="button"
-                data-toggle="collapse"
-                data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-              >
-                <span className=""> </span>
-              </button>
 
-              <div
-                className="collapse navbar-collapse"
-                id="navbarSupportedContent"
-              >
-                <ul className="navbar-nav  mx-auto ">
-                  <li className="nav-item">
-                    <NavLink
-                      className="nav-link"
-                      style={computeLinkStyle("/", true)}
-                      to="/"
-                      exact
-                    >
-                      Home <span className="sr-only">(current)</span>
-                    </NavLink>
-                  </li>
-
-                  <li className="nav-item">
-                    <NavLink
-                      className="nav-link"
-                      style={computeLinkStyle("/menu")}
-                      to="/menu"
-                    >
-                      Menu
-                    </NavLink>
-                  </li>
-                  <li className="nav-item">
-                    <NavLink
-                      to="/about"
-                      className="nav-link"
-                      style={computeLinkStyle("/about")}
-                    >
-                      About
-                    </NavLink>
-                  </li>
-
-                  <li className="nav-item">
-                    <NavLink
-                      className="nav-link"
-                      style={computeLinkStyle("/booktable")}
-                      to="/booktable"
-                    >
-                      Book Table now
-                    </NavLink>
-                  </li>
-                </ul>
-                <div className="user_option">
-                  {!user.isLoggedIn && (
-                    <NavLink to="/login" className="user_link">
-                      {userIcon}
-                    </NavLink>
-                  )} */}
                  
-              <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-              <Navbar.Collapse id="responsive-navbar-nav">
+              <Navbar.Toggle aria-controls="responsive-navbar-nav"  />
+              <Navbar.Collapse id="responsive-navbar-nav" style={{textAlign:'center'}}>
                 <Nav className="navbar-nav mx-auto">
                   <NavLink className="nav-link" style={computeLinkStyle('/', true)} to="/" exact>
                     Home
