@@ -55,7 +55,6 @@ function Header() {
   const searchClick = (e) => {
     e.preventDefault();
     setSearchProd(!searchProd);
-   
   };
   const handleChange = (e) => {
     setSearchText(e.target.value);
@@ -64,7 +63,6 @@ function Header() {
         product.name.toLowerCase().includes(e.target.value.trim())
       );
       console.log(filtered);
-     
       setFilterProd(filtered);
     }
   };
@@ -75,7 +73,6 @@ function Header() {
       console.log(filtredProd);
       const products = filtredProd;
       dispatch(productsActions.filtedProd(filtredProd));
-      setFilterProd(false)
       //navigate(`/search/?${searchText}`);
     }
   }
@@ -208,8 +205,8 @@ function Header() {
                     </button>
                   </form>
 
-                  <a className="order_online">
-                  +4734567890
+                  <a href="" className="order_online">
+                    Order Online
                   </a>
                 </div>
               </Navbar.Collapse>  
@@ -234,10 +231,10 @@ function Header() {
                     onClick={(e) => {
                       searchNow(e);
                     }}
-                    className="btn btn-outline-warning my-2 my-sm-0"
+                    className="btn btn-outline-success my-2 my-sm-0"
                     type="submit"
                   >
-                    <NavLink to="search" style={{color: 'black'}}>Search</NavLink>
+                    <NavLink to="search">Search</NavLink>
                   </button>
                 </form>
               </Navbar>
