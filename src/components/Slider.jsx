@@ -14,7 +14,7 @@ const slidesData = [
   {
     header: "Daily Specials",
     text: "Quis autem vel eum iure reprehenderit qui...",
-  }
+  },
 ];
 
 const Slider = () => {

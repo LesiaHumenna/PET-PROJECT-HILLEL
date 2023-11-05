@@ -66,7 +66,7 @@ function Header() {
       );
       console.log(filtered);
      
-      setFilterProd(filtered);
+      setFilterProd(filtered)
     }
   };
 
@@ -76,7 +76,8 @@ function Header() {
       console.log(filtredProd);
       const products = filtredProd;
       dispatch(productsActions.filtedProd(filtredProd));
-      setFilterProd(false)
+      setFilterProd(products)
+      setSearchProd(!searchProd);
       //navigate(`/search/?${searchText}`);
     }
   }
